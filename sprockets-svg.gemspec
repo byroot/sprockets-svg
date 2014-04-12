@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Sprockets::Svg::VERSION
   spec.authors       = ['Jean Boussier']
   spec.email         = ['jean.boussier@gmail.com']
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{SVG toolchain for sprockets}
+  spec.description   = %q{Minify SVG assets, and optionally convert them to PNG for browser compatibility.}
   spec.homepage      = ''
   spec.license       = 'MIT'
 
