@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['jean.boussier@gmail.com']
   spec.summary       = %q{SVG toolchain for sprockets}
   spec.description   = %q{Minify SVG assets, and optionally convert them to PNG for browser compatibility.}
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/byroot/sprockets-svg'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
