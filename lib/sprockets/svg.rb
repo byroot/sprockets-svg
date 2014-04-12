@@ -15,8 +15,11 @@ end
 
 require_relative 'svg/cleaner'
 require_relative 'svg/png'
+require_relative 'svg/server'
 require_relative 'svg/sass_functions'
 
 Sprockets::SassFunctions.send(:include, Sprockets::Svg::SassFunctions)
 Sprockets::Asset.send(:include, Sprockets::Svg::Png)
+Sprockets::Environment.send(:include, Sprockets::Svg::Server)
+
 require_relative 'svg/railtie' if defined?(Rails)
