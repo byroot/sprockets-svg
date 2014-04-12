@@ -6,17 +6,17 @@ module Sprockets
     module Server
 
       def self.included(base)
-        base.send(:alias_method, :find_asset_without_convertion, :find_asset)
-        base.send(:alias_method, :find_asset, :find_asset_with_convertion)
+        base.send(:alias_method, :find_asset_without_conversion, :find_asset)
+        base.send(:alias_method, :find_asset, :find_asset_with_conversion)
       end
 
-      def find_asset_with_convertion(path, options = {})
+      def find_asset_with_conversion(path, options = {})
         convert = false
         if path.ends_with?('.svg.png')
           path = path.gsub(/\.png/, '')
           convert = true
         end
-        asset = find_asset_without_convertion(path, options)
+        asset = find_asset_without_conversion(path, options)
 
         if convert
           asset = svg_asset_to_static_png(asset)

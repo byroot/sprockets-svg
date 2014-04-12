@@ -4,12 +4,12 @@ module Sprockets
   module Svg
     module Png
       def self.included(base)
-        base.send(:alias_method, :write_to_without_png_convertion, :write_to)
-        base.send(:alias_method, :write_to, :write_to_with_png_convertion)
+        base.send(:alias_method, :write_to_without_png_conversion, :write_to)
+        base.send(:alias_method, :write_to, :write_to_with_png_conversion)
       end
 
-      def write_to_with_png_convertion(path, options={})
-        write_to_without_png_convertion(path, options)
+      def write_to_with_png_conversion(path, options={})
+        write_to_without_png_conversion(path, options)
         if path.ends_with?('.svg')
           Png.convert(path, path + '.png')
         end
