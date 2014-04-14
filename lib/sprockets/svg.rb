@@ -18,6 +18,7 @@ require_relative 'svg/png'
 require_relative 'svg/server'
 
 Sprockets::Asset.send(:include, Sprockets::Svg::Png)
+Sprockets::StaticAsset.send(:include, Sprockets::Svg::Png)
 Sprockets::Environment.send(:include, Sprockets::Svg::Server)
 
 require_relative 'svg/railtie' if defined?(Rails)

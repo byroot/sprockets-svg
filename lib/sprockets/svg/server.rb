@@ -30,9 +30,9 @@ module Sprockets
       end
 
       def svg_asset_to_static_png(svg_asset)
-        tmp = Tempfile.new(['svg2png', '.svg'])
-        svg_asset.write_to(tmp.path)
-        ::Sprockets::StaticAsset.new(self, svg_asset.logical_path + '.png', Pathname.new(tmp.path + '.png'))
+        tmp_path = Tempfile.new(['svg2png', '.svg']).path
+        svg_asset.write_to(tmp_path)
+        ::Sprockets::StaticAsset.new(self, svg_asset.logical_path + '.png', Pathname.new(tmp_path + '.png'))
       end
 
     end
