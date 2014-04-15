@@ -10,10 +10,16 @@ module Sprockets
 
       def write_to_with_png_conversion(path, options={})
         write_to_without_png_conversion(path, options)
-        if path.ends_with?('.svg')
+        if path.ends_with?('.svg') && image?(path)
           Png.convert(path, path + '.png')
         end
         nil
+      end
+
+      def image?(path)
+        document = Nokogiri::XML(File.read(path))
+        svg = document.css('svg')
+        svg.attribute('height') && svg.attribute('width')
       end
 
       # TODO: integrate svgo instead: https://github.com/svg/svgo
