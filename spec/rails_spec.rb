@@ -40,3 +40,13 @@ describe 'Rake task' do
     expect(Dir[ASSETS.join('fontawesome-webfont-*.png')]).to be_empty
   end
 end
+
+describe AssetsController, type: :controller do
+
+  it 'rack' do
+    get :test, file: 'facebook.svg.png'
+    expect(response).to be_success
+    expect(response.body.force_encoding('utf-8')).to be_starts_with("\x89PNG\r\n")
+  end
+
+end

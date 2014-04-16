@@ -12,7 +12,7 @@ module Sprockets
 
       def find_asset_with_conversion(path, options = {})
         convert = false
-        if path.ends_with?('.svg.png')
+        if path.to_s.ends_with?('.svg.png')
           path = path.gsub(/\.png/, '')
           convert = true
         end

@@ -1,9 +1,9 @@
 ENV['RAILS_ENV'] ||= 'test'
 
 require_relative 'app/config/environment'
+require 'rspec/rails'
 require_relative '../lib/sprockets-svg'
 
-require 'rspec/rails'
 
 RSpec.configure do |c|
   c.filter_run_excluding not_jruby: RUBY_PLATFORM == 'java'
