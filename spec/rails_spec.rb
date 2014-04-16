@@ -26,7 +26,7 @@ describe 'Rake task' do
   let(:png_source) { png_path.read }
 
   it "generate a PNG from the SVG source" do
-    `cd spec/app; bundle exec rake assets:precompile &2> /dev/null`
+    `cd spec/app; bundle exec rake assets:precompile &> /dev/null`
     $?.should be_success
 
     expect(svg_path).to be_exist
