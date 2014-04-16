@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/byroot/sprockets-svg.svg)](https://travis-ci.org/byroot/sprockets-svg)
+[![Code Climate](https://codeclimate.com/github/byroot/sprockets-svg.png)](https://codeclimate.com/github/byroot/sprockets-svg)
+[![Gem Version](https://badge.fury.io/rb/sprockets-svg.png)](http://badge.fury.io/rb/sprockets-svg)
+
 # Sprockets::Svg
 
 SVG toolchain for sprockets
