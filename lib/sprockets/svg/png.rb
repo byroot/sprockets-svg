@@ -18,9 +18,9 @@ module Sprockets
 
       def png_path(svg_path)
         if svg_path =~ /^(.*)\-([0-9a-f]{40})\.svg$/
-          p "#{$1}.svg-#{$2}.png"
+          "#{$1}.svg-#{$2}.png"
         else
-          p "#{svg_path}.png"
+          "#{svg_path}.png"
         end
       end
 
