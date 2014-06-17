@@ -1,10 +1,18 @@
 require 'sprockets/svg/version'
 
 require 'nokogiri'
+require 'RMagick'
 
 module Sprockets
   module Svg
     extend self
+
+    # TODO: integrate svgo instead: https://github.com/svg/svgo
+    # See https://github.com/lautis/uglifier on how to integrate a npm package as a gem.
+    def self.convert(svg_path, png_path)
+      image = Magick::ImageList.new(svg_path)
+      image.write(png_path)
+    end
 
     def self.image?(path)
       return false unless path.ends_with?('.svg')
@@ -24,11 +32,9 @@ module Sprockets
 end
 
 require_relative 'svg/cleaner'
-require_relative 'svg/png'
+require_relative 'svg/proxy_asset'
 require_relative 'svg/server'
 
-Sprockets::Asset.send(:include, Sprockets::Svg::Png)
-Sprockets::StaticAsset.send(:include, Sprockets::Svg::Png)
 Sprockets::Environment.send(:include, Sprockets::Svg::Server)
 Sprockets::Index.send(:include, Sprockets::Svg::Server)
 

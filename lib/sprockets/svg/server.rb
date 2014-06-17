@@ -19,22 +19,10 @@ module Sprockets
         asset = find_asset_without_conversion(path, options)
 
         if asset && convert
-          asset = svg_asset_to_static_png(asset)
+          asset = ProxyAsset.new(asset)
         end
 
         asset
-      end
-
-      def svg2png_cache_path
-        @cache_path ||= cache.instance_variable_get(:@root).join('svg2png')
-      end
-
-      def svg_asset_to_static_png(svg_asset)
-        tmp_path = Tempfile.new(['svg2png', '.svg']).path
-        svg_asset.write_to(tmp_path)
-        png_asset = ::Sprockets::StaticAsset.new(self, svg_asset.logical_path + '.png', Pathname.new(tmp_path + '.png'))
-        png_asset.instance_variable_set(:@digest, svg_asset.digest)
-        png_asset
       end
 
       def each_file(*args)
