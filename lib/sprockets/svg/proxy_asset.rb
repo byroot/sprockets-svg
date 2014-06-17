@@ -14,6 +14,13 @@ module Sprockets
         @original_asset.logical_path + '.png'
       end
 
+      def length
+        # If length isn't already set we default to original asset length.
+        # It is most certainly wrong, but at least it will be bigger than the real size, so it is unlikely to create any issue.
+        # And most importantly it prevent useless on the fly compilation
+        @length || @original_asset.length
+      end
+
       def content_type
         'image/png'
       end
@@ -54,6 +61,8 @@ module Sprockets
         # Set mtime correctly
         File.utime(mtime, mtime, filename)
 
+        @length = File.stat(filename).size
+
         nil
       ensure
         # Ensure tmp file gets cleaned up
@@ -61,9 +70,11 @@ module Sprockets
       end
 
       def to_s
-        tmp_path = Tempfile.new(['png-cache', '.png']).path
-        write_to(tmp_path)
-        File.read(tmp_path)
+        @source ||= begin
+          tmp_path = Tempfile.new(['png-cache', '.png']).path
+          write_to(tmp_path)
+          File.read(tmp_path)
+        end
       end
 
       private
