@@ -1,7 +1,8 @@
 class AssetsController < ApplicationController
 
   def test
-    render text: Rails.application.assets[params[:file]].to_s
+    asset = Rails.application.assets[params[:file]]
+    send_data asset.to_s, content_type: asset.content_type
   end
 
 end

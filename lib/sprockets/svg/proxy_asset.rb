@@ -14,6 +14,10 @@ module Sprockets
         @original_asset.logical_path + '.png'
       end
 
+      def content_type
+        'image/png'
+      end
+
       def write_to(filename, options = {})
         # Gzip contents if filename has '.gz'
         options[:compress] ||= File.extname(filename) == '.gz'

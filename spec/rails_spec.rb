@@ -62,6 +62,7 @@ describe AssetsController, type: :controller do
     get :test, file: 'facebook.svg.png'
     expect(response).to be_success
     expect(response.body.force_encoding('utf-8')).to be_starts_with("\x89PNG\r\n")
+    expect(response.headers['Content-Type']).to be == 'image/png'
   end
 
 end
