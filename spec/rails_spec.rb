@@ -16,15 +16,15 @@ describe 'Rake task' do
     FileUtils.rm_rf(COMPILED_ASSETS_PATH)
   end
 
-  let(:svg_name) { 'facebook-052e5d3070b50e0b3e60014378ece289.svg' }
+  let(:svg_name) { 'facebook-213385e4d9304ef93b23578fc4c93440.svg' }
 
-  let(:png_name) { 'facebook.svg-052e5d3070b50e0b3e60014378ece289.png' }
+  let(:png_name) { 'facebook.svg-213385e4d9304ef93b23578fc4c93440.png' }
 
   let(:svg_path) { ASSETS.join(svg_name) }
 
   let(:png_path) { ASSETS.join(png_name) }
 
-  let(:font_path) { ASSETS.join('fontawesome-webfont-7534bcc67141208ea7a8c9be3a960f17.svg') }
+  let(:font_path) { ASSETS.join('fontawesome-webfont-040e9dcf8f420c96cbb5f0985fe09185.svg') }
 
   let(:svg_fingerprint) { Digest::MD5.hexdigest(svg_path.read) }
 
@@ -37,7 +37,7 @@ describe 'Rake task' do
   it "generate a PNG from the SVG source" do
     output = `cd spec/app; bundle exec rake assets:precompile 2>&1`
     puts output unless $?.success?
-    $?.should be_success
+    expect($?).to be_success
 
     expect(svg_path).to be_exist
     expect(png_path).to be_exist

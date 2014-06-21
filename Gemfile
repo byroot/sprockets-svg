@@ -8,4 +8,7 @@ gem 'rspec'
 gem 'rspec-rails'
 gem 'sass-rails'
 gem 'rails'
-gem 'byebug'
+
+if RUBY_VERSION >= '2'
+  gem 'byebug'
+end
