@@ -7,7 +7,7 @@ module Sprockets
       end
 
       def digest_path
-        png_path(@original_asset.digest_path)
+        ::Sprockets::Svg.png_path(@original_asset.digest_path)
       end
 
       def logical_path
@@ -78,14 +78,6 @@ module Sprockets
       end
 
       private
-
-      def png_path(svg_path)
-        if svg_path =~ /^(.*)\-([0-9a-f]{32})\.svg$/
-          "#{$1}.svg-#{$2}.png"
-        else
-          "#{svg_path}.png"
-        end
-      end
 
       def method_missing(name, *args, &block)
         if @original_asset.respond_to?(name)
