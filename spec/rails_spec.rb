@@ -9,15 +9,15 @@ ASSETS = Pathname.new(COMPILED_ASSETS_PATH)
 
 describe 'Sprockets::Svg' do
 
-  let(:svg_name) { 'facebook-213385e4d9304ef93b23578fc4c93440.svg' }
+  let(:svg_name) { 'facebook-83a94368b23ba9e928820abc2cc12254.svg' }
 
-  let(:png_name) { 'facebook.svg-213385e4d9304ef93b23578fc4c93440.png' }
+  let(:png_name) { 'facebook.svg-83a94368b23ba9e928820abc2cc12254.png' }
 
   let(:svg_path) { ASSETS.join(svg_name) }
 
   let(:png_path) { ASSETS.join(png_name) }
 
-  let(:font_path) { ASSETS.join('fontawesome-webfont-040e9dcf8f420c96cbb5f0985fe09185.svg') }
+  let(:font_path) { ASSETS.join('fontawesome-webfont-be512ff93d0957609a535f25f438ac42.svg') }
 
   let(:svg_fingerprint) { Digest::MD5.hexdigest(svg_path.read) }
 
@@ -44,7 +44,7 @@ describe 'Sprockets::Svg' do
       expect(svg_path).to be_exist
       expect(png_path).to be_exist
 
-      expect(svg_fingerprint).to be == '85385a2b8357015a4ae6d8ab782d5389'
+      expect(svg_fingerprint).to be == '2d8738f246e37a7befd06db8dc2f7e11'
       # Metadata etc are kinda time dependant, so this assertion is the best I can do.
       expect(png_source).to be_starts_with("\x89PNG\r\n")
 
