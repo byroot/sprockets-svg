@@ -29,7 +29,8 @@ module Sprockets
         # Gzip contents if filename has '.gz'
         options[:compress] ||= File.extname(filename) == '.gz'
 
-        tmp_path = Tempfile.new(['svg2png', '.svg']).path
+        file = Tempfile.new(['svg2png', '.svg'])
+        tmp_path = file.path
         png_path = tmp_path + '.png'
 
         @original_asset.write_to(tmp_path, options.merge(compress: false))
