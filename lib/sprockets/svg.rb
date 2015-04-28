@@ -1,7 +1,7 @@
 require 'sprockets/svg/version'
 
 require 'nokogiri'
-require 'RMagick'
+require 'rmagick'
 
 module Sprockets
   module Svg
