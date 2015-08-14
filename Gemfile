@@ -8,6 +8,7 @@ gem 'rspec'
 gem 'rspec-rails'
 gem 'sass-rails'
 gem 'rails'
+gem 'sprockets-rails', '>= 3.0.0.beta2'
 
 if RUBY_VERSION >= '2'
   gem 'byebug'

@@ -3,8 +3,10 @@ begin
 
   module Sprockets::Svg
     class Railtie < ::Rails::Railtie
-      initializer :setup_sprockets_svg, group: :all do |app|
-        Sprockets::Svg.install(app.assets)
+      initializer :setup_sprockets_svg do
+        config.assets.configure do |env|
+          Sprockets::Svg.install(env)
+        end
       end
     end
   end

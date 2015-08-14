@@ -9,19 +9,19 @@ ASSETS = Pathname.new(COMPILED_ASSETS_PATH)
 
 describe 'Sprockets::Svg' do
 
-  let(:svg_name) { 'facebook-83a94368b23ba9e928820abc2cc12254.svg' }
+  let(:svg_name) { manifest['assets']['facebook.svg'] }
 
-  let(:png_name) { 'facebook.svg-83a94368b23ba9e928820abc2cc12254.png' }
+  let(:png_name) { manifest['assets']['facebook.png'] }
 
   let(:svg_path) { ASSETS.join(svg_name) }
 
   let(:png_path) { ASSETS.join(png_name) }
 
-  let(:font_path) { ASSETS.join('fontawesome-webfont-be512ff93d0957609a535f25f438ac42.svg') }
+  let(:font_path) { ASSETS.join('fontawesome-webfont-62b810b30c0775c7680f56a9d411feb0b239a24aa33afcdda468c4686eeee9bb.svg') }
 
   let(:svg_fingerprint) { Digest::MD5.hexdigest(svg_path.read) }
 
-  let(:manifest_path) { Dir[ASSETS.join('manifest-*.json')].first }
+  let(:manifest_path) { Dir[ASSETS.join('.sprockets-manifest-*.json')].first }
 
   let(:manifest) { JSON.parse(File.read(manifest_path)) }
 
@@ -41,6 +41,9 @@ describe 'Sprockets::Svg' do
       puts output unless $?.success?
       expect($?).to be_success
 
+      expect(svg_name).not_to be_nil
+      expect(png_name).not_to be_nil
+
       expect(svg_path).to be_exist
       expect(png_path).to be_exist
 
@@ -51,7 +54,7 @@ describe 'Sprockets::Svg' do
       expect(manifest['files'][svg_name]).to be_present
       expect(manifest['files'][png_name]).to be_present
 
-      expect(manifest['assets']['facebook.svg.png']).to be == png_name
+      expect(manifest['assets']['facebook.png']).to be == png_name
 
       expect(font_path).to be_exist
       expect(Dir[ASSETS.join('fontawesome-webfont-*.png')]).to be_empty
@@ -61,7 +64,7 @@ describe 'Sprockets::Svg' do
   describe AssetsController, type: :controller do
 
     it 'rack' do
-      get :test, file: 'facebook.svg.png'
+      get :test, file: 'facebook.png'
       expect(response).to be_success
       expect(response.body.force_encoding('utf-8')).to be_starts_with("\x89PNG\r\n".force_encoding('utf-8'))
       expect(response.headers['Content-Type']).to be == 'image/png'
@@ -70,8 +73,8 @@ describe 'Sprockets::Svg' do
     it 'compile scss' do
       get :test, file: 'application.css'
       expect(response).to be_success
-      expect(response.body).to include svg_name
-      expect(response.body).to include png_name
+      expect(response.body).to match %r{url\(/assets/facebook-\w+\.svg\)}
+      expect(response.body).to match %r{url\(/assets/facebook-\w+\.png\)}
     end
 
   end
