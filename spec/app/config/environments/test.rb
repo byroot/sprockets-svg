@@ -1,4 +1,6 @@
 App::Application.configure do
+  config.cache_store = :memory_store
+  config.assets.configure { |env| env.cache = Rails.cache }
   config.assets.digest = true
   config.cache_classes = true
   config.serve_static_assets = true
