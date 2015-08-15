@@ -3,7 +3,7 @@ App::Application.configure do
   config.assets.configure { |env| env.cache = Rails.cache }
   config.assets.digest = true
   config.cache_classes = true
-  config.serve_static_assets = true
+  config.serve_static_files = true
   config.static_cache_control = "public, max-age=3600"
   config.eager_load = false
   config.consider_all_requests_local = true
