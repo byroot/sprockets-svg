@@ -18,10 +18,9 @@ module Sprockets
     end
 
     def strip_png_metadata(png_blob)
-      stream = ChunkyPNG::Datastream.from_blob(png_blob)
-      image = ChunkyPNG::Image.from_datastream(stream)
+      image = ChunkyPNG::Image.from_blob(png_blob)
       USELESS_PNG_METADATA.each(&image.metadata.method(:delete))
-      image.to_datastream.to_blob
+      image.to_blob
     end
 
     def install(assets)
