@@ -22,4 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'sprockets', '>= 3'
   spec.add_dependency 'nokogiri'
   spec.add_dependency 'rmagick'
+  spec.add_dependency 'chunky_png'
 end

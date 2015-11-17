@@ -25,7 +25,7 @@ describe 'Sprockets::Svg' do
 
   let(:manifest) { JSON.parse(File.read(manifest_path)) }
 
-  let(:png_source) { png_path.read }
+  let(:png_fingerprint) { Digest::MD5.hexdigest(png_path.read) }
 
   describe 'Rake task' do
     before :each do
@@ -48,8 +48,13 @@ describe 'Sprockets::Svg' do
       expect(png_path).to be_exist
 
       expect(svg_fingerprint).to be == '2d8738f246e37a7befd06db8dc2f7e11'
-      # Metadata etc are kinda time dependant, so this assertion is the best I can do.
-      expect(png_source).to be_starts_with("\x89PNG\r\n")
+
+      png_metadata = ChunkyPNG::Image.from_file(png_path.to_s).metadata
+      expect(png_metadata).to be_empty
+
+      # Metadata usually contains some timestamps, so sleeping is the best way to make sure they are all stripped
+      sleep 1
+      expect(png_fingerprint).to be == Digest::MD5.hexdigest(Sprockets::Svg.convert(svg_path.read))
 
       expect(manifest['files'][svg_name]).to be_present
       expect(manifest['files'][png_name]).to be_present

@@ -1,10 +1,12 @@
 require 'sprockets/svg/version'
-
+require 'chunky_png'
 require 'rmagick'
 
 module Sprockets
   module Svg
     extend self
+
+    USELESS_PNG_METADATA = %w(svg:base-uri date:create date:modify).freeze
 
     # TODO: integrate svgo instead: https://github.com/svg/svgo
     # See https://github.com/lautis/uglifier on how to integrate a npm package as a gem.
@@ -12,7 +14,14 @@ module Sprockets
       image_list = Magick::Image.from_blob(svg_blob) { self.format = 'SVG' }
       image = image_list.first
       image.format = 'PNG'
-      image.to_blob
+      strip_png_metadata(image.to_blob)
+    end
+
+    def strip_png_metadata(png_blob)
+      stream = ChunkyPNG::Datastream.from_blob(png_blob)
+      image = ChunkyPNG::Image.from_datastream(stream)
+      USELESS_PNG_METADATA.each(&image.metadata.method(:delete))
+      image.to_datastream.to_blob
     end
 
     def install(assets)
