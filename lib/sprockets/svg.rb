@@ -24,10 +24,7 @@ module Sprockets
     end
 
     def install(assets)
-      assets.register_preprocessor 'image/svg+xml', :svg_min do |context, data|
-        Sprockets::Svg::Cleaner.process(data)
-      end
-
+      assets.register_preprocessor 'image/svg+xml', Sprockets::Svg::Cleaner
       assets.register_transformer 'image/svg+xml', 'image/png', -> (input) {
         Sprockets::Svg.convert(input[:data])
       }
