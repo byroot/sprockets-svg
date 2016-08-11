@@ -8,8 +8,10 @@ gem 'rspec'
 gem 'rspec-rails'
 gem 'sass-rails'
 gem 'rails'
-gem 'sprockets-rails', '>= 3.0.0.beta2'
+gem 'sprockets-rails'
 
-if RUBY_VERSION >= '2'
-  gem 'byebug'
+if RUBY_VERSION < '2.2'
+  gem 'rack', '~> 1.x'
 end
+
+gem 'byebug'
