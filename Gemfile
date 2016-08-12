@@ -11,7 +11,7 @@ gem 'rails'
 gem 'sprockets-rails'
 
 if RUBY_VERSION < '2.2'
-  gem 'rack', '~> 1.x'
+  gem 'rack', '~> 1.3'
 end
 
 gem 'byebug'
