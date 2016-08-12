@@ -11,6 +11,10 @@ module Sprockets
         document.xpath('//comment()').remove
         document.to_s.gsub("\n", '').gsub(/>\s+</, '><').strip
       end
+
+      def self.call(input)
+        process(input[:data])
+      end
     end
   end
 end
