@@ -18,9 +18,16 @@ module Sprockets
     end
 
     def strip_png_metadata(png_blob)
-      image = ChunkyPNG::Image.from_blob(png_blob)
-      USELESS_PNG_METADATA.each(&image.metadata.method(:delete))
-      image.to_blob
+      image = ChunkyPNG::Datastream.from_blob(png_blob)
+
+      image.other_chunks.reject! do |chunk|
+        chunk.type == "tIME" ||
+          (chunk.respond_to?(:keyword) && USELESS_PNG_METADATA.include?(chunk.keyword))
+      end
+
+      str = StringIO.new
+      image.write(str)
+      str.string
     end
 
     def install(assets)
