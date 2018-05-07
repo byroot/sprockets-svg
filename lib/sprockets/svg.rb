@@ -1,6 +1,6 @@
 require 'sprockets/svg/version'
 require 'chunky_png'
-require 'rmagick'
+require 'mini_magick'
 
 module Sprockets
   module Svg
@@ -11,9 +11,9 @@ module Sprockets
     # TODO: integrate svgo instead: https://github.com/svg/svgo
     # See https://github.com/lautis/uglifier on how to integrate a npm package as a gem.
     def self.convert(svg_blob)
-      image_list = Magick::Image.from_blob(svg_blob) { self.format = 'SVG' }
-      image = image_list.first
-      image.format = 'PNG'
+      stream = StringIO.new(svg_blob)
+      image = MiniMagick::Image.create('.svg', false) { |file| IO.copy_stream(stream, file) }
+      image.format('png')
       strip_png_metadata(image.to_blob)
     end
 
