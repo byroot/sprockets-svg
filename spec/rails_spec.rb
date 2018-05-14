@@ -69,15 +69,15 @@ describe 'Sprockets::Svg' do
   describe AssetsController, type: :controller do
 
     it 'rack' do
-      get :test, file: 'facebook.png'
-      expect(response).to be_success
+      get :test, params: { file: 'facebook.png' }
+      expect(response).to be_successful
       expect(response.body.force_encoding('utf-8')).to be_starts_with("\x89PNG\r\n".force_encoding('utf-8'))
       expect(response.headers['Content-Type']).to match %r{image/png}
     end
 
     it 'compile scss' do
-      get :test, file: 'application.css'
-      expect(response).to be_success
+      get :test, params: { file: 'application.css' }
+      expect(response).to be_successful
       expect(response.body).to match %r{url\(/assets/facebook-\w+\.svg\)}
       expect(response.body).to match %r{url\(/assets/facebook-\w+\.png\)}
     end
