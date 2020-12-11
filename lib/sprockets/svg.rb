@@ -1,5 +1,4 @@
 require 'sprockets/svg/version'
-require 'chunky_png'
 require 'mini_magick'
 
 module Sprockets
@@ -14,20 +13,7 @@ module Sprockets
       stream = StringIO.new(svg_blob)
       image = MiniMagick::Image.create('.svg', false) { |file| IO.copy_stream(stream, file) }
       image.format('png')
-      strip_png_metadata(image.to_blob)
-    end
-
-    def strip_png_metadata(png_blob)
-      image = ChunkyPNG::Datastream.from_blob(png_blob)
-
-      image.other_chunks.reject! do |chunk|
-        chunk.type == "tIME" ||
-          (chunk.respond_to?(:keyword) && USELESS_PNG_METADATA.include?(chunk.keyword))
-      end
-
-      str = StringIO.new
-      image.write(str)
-      str.string
+      image.to_blob
     end
 
     def install(assets)
@@ -36,7 +22,6 @@ module Sprockets
         Sprockets::Svg.convert(input[:data])
       }
     end
-
   end
 end
 

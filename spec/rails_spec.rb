@@ -49,10 +49,7 @@ describe 'Sprockets::Svg' do
 
       expect(svg_fingerprint).to be == '2d8738f246e37a7befd06db8dc2f7e11'
 
-      png_metadata = ChunkyPNG::Image.from_file(png_path.to_s).metadata
-      expect(png_metadata).to be_empty
-
-      # Metadata usually contains some timestamps, so sleeping is the best way to make sure they are all stripped
+      # Metadata can contain some timestamps, so sleeping is the best way to make sure they are all stripped
       sleep 1
       expect(png_fingerprint).to be == Digest::MD5.hexdigest(Sprockets::Svg.convert(svg_path.read))
 
